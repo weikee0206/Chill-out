@@ -1,0 +1,29 @@
+{
+  "manifest_version": 2,
+  "name": "Chill it out",
+  "version": "v1.1.1",
+  "description": "Show a page when the count down time is up, to let user chill out. Count down timer can be set at preferences page.",
+  "homepage_url": "https://github.com/mdn/webextensions-examples/tree/master/chill-out",
+  "icons": {
+    "48": "icons/chillout-48.png"
+  },
+
+  "permissions": [
+    "alarms",
+    "tabs",
+    "storage"
+  ],
+
+  "page_action": {
+    "default_icon": "icons/chillout-32.png",
+    "default_title": "Chill out"
+  },
+
+  "background": {
+    "scripts": ["background.js"]
+  },
+
+  "options_ui": {
+        "page": "option/index.html"
+    }
+}
