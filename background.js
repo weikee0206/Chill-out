@@ -8,35 +8,50 @@ in the console, but the alarm will still go off after 6 seconds
 * if you package the extension and install it, then the alarm will go off after
 a minute.
 
-chilloutandwatchsomecatgifs.com/
+var CATGIFS = http://chilloutandwatchsomecatgifs.com/
 */
-var CATGIFS = "http://chilloutandwatchsomecatgifs.com/";
 
 
 
+var CATGIFS = 'http://chilloutandwatchsomecatgifs.com/';
+var delayInMinutes = '0.1';
+
+function setGif(variable,item) {
+        const catgifs = item.monster.catgifs;
+    window[variable] = catgifs;
+}
+
+function setDelay(variable,item) {
+        const mycolor = item.monster.mycolor;
+    window[variable] = mycolor;
+}
 
 
-const getItem = browser.storage.local.get('mycolor');
-getItem.then(response => {
-    const delayInMinutes = response.mycolor;
-    if(delayInMinutes != null ) {
 
-      console.log("Responseddddd!");
-      console.log(delayInMinutes);
-console.log(typeof(delayInMinutes));
-startAlarm(delayInMinutes);
+const test = browser.storage.local.get("monster")
+  test.then(setupStart, onError);
 
-      //delayInMinutes = myColor;
-      //  document.getElementById('myButton').style.background = myColor;
-    } else {
-    	console.log("empty")
-    }
-})
+function setupStart(item){
+  setGif("CATGIFS",item);
+  setDelay("delayInMinutes",item);
+  startAlarm(delayInMinutes);
+
+}
+
+function getStorageValue(item){
+  setGif("CATGIFS",item);
+  setDelay("delayInMinutes",item);
+}
+
+function onError(error) {
+  console.log(error)
+}
+
+
 
 //document.getElementById('myButton').addEventListener('click', function(){
   //  document.getElementById('myLabel').textContent = "YAY!";
 //})
-
 
 
 function startAlarm(delayInMinutes){
@@ -50,22 +65,13 @@ On alarm, show the page action.
 function restartAlarm(){
 var clearAlarms = browser.alarms.clearAll();
 clearAlarms.then(onClearedAll);
-const getItem = browser.storage.local.get('mycolor');
-getItem.then(response => {
-    const delayInMinutes = response.mycolor;
-    if(delayInMinutes != null ) {
 
-      console.log("Responseddddd!");
-      console.log(delayInMinutes);
-console.log(typeof(delayInMinutes));
+const restart = browser.storage.local.get("monster")
+  restart.then(getStorageValue, onError);
+  console.log(CATGIFS);
+  console.log(delayInMinutes);
   browser.alarms.create("testAlarm", {delayInMinutes});
 
-      //delayInMinutes = myColor;
-      //  document.getElementById('myButton').style.background = myColor;
-    } else {
-    	console.log("empty")
-    }
-})
 }
       
 function onClearedAll(wasCleared) {
