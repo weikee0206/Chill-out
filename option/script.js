@@ -58,6 +58,15 @@ else if(document.getElementById('radio3').checked)
   setting: Setting
 }
     browser.storage.local.set({monster})
-
+ browser.runtime.reload();
 
 })
+
+document.getElementById('disable').addEventListener('click', function(){
+  delayInMinutes = Number(10000000);
+        var monster = {
+  mycolor: delayInMinutes
+}
+ browser.storage.local.set({monster})
+ browser.runtime.reload();
+  })

@@ -1,0 +1,91 @@
+<html lang="en">
+
+<head>
+<!-- If IE use the latest rendering engine -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- Set the page to the width of the device and set the zoon level -->
+<meta name="viewport" content="width = device-width, initial-scale = 1">
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link href="sticky-footer-navbar.css" rel="stylesheet">
+
+ </head>
+<style>
+.headings{
+    background-color:#2E2D88;
+    color:white;
+}
+.jumbotron{
+    background-color:#2E2D88;
+    color:white;
+}
+/* Adds borders for tabs */
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 10px;
+}
+.nav-tabs {
+    margin-bottom: 0;
+}
+.container {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+.page-header{
+  margin-top: 0px;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+code {
+  font-size: 80%;
+}
+</style>
+
+<body>
+  
+<div class="container">
+<div class="page-header">
+  <center>
+<h3>Extension's Preferences</h3>
+</center>
+</div>
+ <form action="">
+        <h4>Select a Theme to chill out!</h4>
+  <input type="radio" id="radio1" name="templete" value="1"> Chill Out and watch some cats (default)<br>
+  <input type="radio" id="radio2" name="templete" value="2"> Chilling Vibes (with Sound On!)<br>
+  <input type="radio" id="radio3" name="templete" value="3"> Landscape Themed
+</form>
+      <form>
+    <hr>
+    <div class="pref">
+        <label for="Minutes to chill out">Chill out in Minute(s):</label>
+        <input type="text" id="myColor">
+    </div>
+    <hr>
+    <div class="container" align="center">
+    <button id="myChoice" type="submit" style="width: 80px;height: 40px;border-radius: 6px;background-color: #7dd1f0;color: #fff; font-size: 16px;border: 1px #fff solid" >Save</button>
+    <button id="disable" type="submit" style="width: 80px;height: 40px;border-radius: 6px;background-color: #ffe669;color: #fff; font-size: 16px;border: 1px #fff solid">Disable</button>
+  </div>
+  </form>
+  </div>
+
+    <script src="script.js"></script>
+
+  </body>
+  </html>
+  
