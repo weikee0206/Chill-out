@@ -13,4 +13,4 @@ document.getElementById('myChoice').addEventListener('click', function(){
 
     	delayInMinutes = Number(document.getElementById('myColor').value);
     browser.storage.local.set({mycolor: delayInMinutes})
-})
+})//123
