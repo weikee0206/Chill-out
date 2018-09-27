@@ -14,6 +14,14 @@
     "storage"
   ],
 
+  "browser_action": {
+    "default_icon": {
+     "32" : "icons/chillout-32.png"
+    },
+    "default_title": "Chillin",
+    "default_popup": "option/index1.html"
+  },
+
   "page_action": {
     "default_icon": "icons/chillout-32.png",
     "default_title": "Chill out"
@@ -24,6 +32,6 @@
   },
 
   "options_ui": {
-        "page": "option/index.html"
+        "page": "option/index1.html"
     }
 }
