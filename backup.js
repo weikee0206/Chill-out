@@ -8,78 +8,78 @@ in the console, but the alarm will still go off after 6 seconds
 * if you package the extension and install it, then the alarm will go off after
 a minute.
 
-chilloutandwatchsomecatgifs.com/
+var CATGIFS = http://chilloutandwatchsomecatgifs.com/
 */
-var DELAY = 0.01;
-var CATGIFS = "https://www.facebook.com";
+
+var CATGIFS = 'http://chilloutandwatchsomecatgifs.com/';
+var delayInMinutes = '0.1';
+
+function setGif(variable,item) {
+        const catgifs = item.monster.catgifs;
+    window[variable] = catgifs;
+
+}
+
+function setDelay(variable,item) {
+        const mycolor = item.monster.mycolor;
+    window[variable] = mycolor;
+}
 
 
 
 
+const test = browser.storage.local.get("monster")
+  test.then(getStorageValue, onError);
 
-/*
-Restart alarm for the currently active tab, whenever background.js is run.
-*/
-var gettingActiveTab = browser.tabs.query({active: true, currentWindow: true});
-gettingActiveTab.then((tabs) => {
-  restartAlarm(tabs[0].id);
-});
+function getStorageValue(item){
+  setGif("CATGIFS",item);
+  setDelay("delayInMinutes",item);
+}
 
-/*
-Restart alarm for the currently active tab, whenever the user navigates.
-*/
-browser.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (!changeInfo.url) {
-    return;
-  }
+function onError(error) {
+  console.log(error)
+}
 
-  var gettingActiveTab = browser.tabs.query({active: true, currentWindow: true});
-  gettingActiveTab.then((tabs) => {
-    if (tabId == tabs[0].id) {
-      restartAlarm(tabId);
-    }
-  });
-});
 
-/*
-Restart alarm for the currently active tab, whenever a new tab becomes active.
-*/
-browser.tabs.onActivated.addListener((activeInfo) => {
-  restartAlarm(activeInfo.tabId);
-});
+console.log(delayInMinutes);
+console.log(CATGIFS);
+     
 
-/*
-restartAlarm: clear all alarms,
-then set a new alarm for the given tab.
-*/
-function restartAlarm(tabId) {
-  browser.pageAction.hide(tabId);
-  browser.alarms.clearAll();
-  var gettingTab = browser.tabs.get(tabId);
-  gettingTab.then((tab) => {
-    if (tab.url != CATGIFS) {
-      browser.alarms.create("", {delayInMinutes: DELAY});
-    }
-  });
+//document.getElementById('myButton').addEventListener('click', function(){
+  //  document.getElementById('myLabel').textContent = "YAY!";
+//})
+
+
+
+function startAlarm(delayInMinutes){
+browser.alarms.create("testAlarm", {delayInMinutes});
+  console.log("Installed");
 }
 
 /*
 On alarm, show the page action.
 */
-browser.alarms.onAlarm.addListener((alarm) => {
-  var gettingActiveTab = browser.tabs.query({active: true, currentWindow: true});
-  gettingActiveTab.then((tabs) => {
-    browser.pageAction.show(tabs[0].id);
-  });
-  });
+function restartAlarm(){
+var clearAlarms = browser.alarms.clearAll();
+clearAlarms.then(onClearedAll);
+const test = browser.storage.local.get("monster")
+  test.then(getStorageValue, onError);
+  browser.alarms.create("testAlarm", {delayInMinutes});
 
-browser.alarms.create("my-periodic-alarm", {
-  delayInMinutes,
-  periodInMinutes
-});
+}
       
+function onClearedAll(wasCleared) {
+  console.log(wasCleared);  // true/false
+}
 
 
+browser.alarms.onAlarm.addListener(handleAlarm);
+function handleAlarm(alarmInfo) {
+  console.log("on alarm: " + alarmInfo.name);
+    action();
+
+  restartAlarm();
+}
 
 /*
 On page action click, navigate the corresponding tab to the cat gifs.
@@ -88,12 +88,25 @@ On page action click, navigate the corresponding tab to the cat gifs.
 // browser.runtime.onInstalled.addListener(() => {
 //   browser.tabs.update({url: CATGIFS});
 // });
+//browser.tabs.update({url: CATGIFS});
+function action(){
+  var activeTabPromise = browser.tabs.query({active: true, currentWindow: true});
+      activeTabPromise.then((tabs) => {
 
+            if (tabs[0].url != CATGIFS)
+  {
+  browser.tabs.create({url: CATGIFS});
+  console.log(tabs[0].url);
+
+} else {
+  console.log("Same url");
+}
+      });
+}
 
 browser.pageAction.onClicked.addListener(() => {
-  browser.tabs.update({url: CATGIFS});
+  action();
 });
-
 
 
 
